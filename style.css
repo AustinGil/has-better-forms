@@ -1,8 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker:wght@400&family=Manrope:wght@400;700&display=swap');
 body {
-  max-inline-size: 600px;
+  max-inline-size: 38rem;
   margin: auto;
-  padding: 30px;
+  padding: 1.5rem;
+  font: 1.25rem/1.5 'Manrope';
+  color: #333;
+  background-image: url('/background.svg');
 }
+h1 {
+  font-family: 'Permanent Marker';
+}
+h2 {
+  font-family: 'Permanent Marker';
+}
+h3 {
+  font-family: 'Permanent Marker';
+}
+form {
+  border: .125rem solid;
+  padding: .75rem;
+  background: #fff;
+}
+input,
+select,
+button {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+  input[type="radio"],
+  input[type="checkbox"] {
+    position: relative;
+    appearance: none;
+    inset-block-start: -0.1em;
+    inline-size: 1em;
+    block-size: 1em;
+    border: .125rem solid;
+    border-radius: .125em;
+    vertical-align: middle;
+    color: inherit;
+    transition: box-shadow 0.2s ease;
+  }
+  input[type='radio'] {
+    border-radius: 50%;
+  }
+  input[type="checkbox"]:checked,
+  input[type="radio"]:checked {
+    box-shadow: inset 0 0 0 .25em mediumpurple;
+  }
+fieldset {
+  border: .125rem solid;
+  border-radius: .25rem;
+}
+
+/* UTILS */
 .visually-hidden {
   border: 0;
   clip: rect(0 0 0 0);
@@ -10,82 +61,42 @@ body {
   margin: 0;
   overflow: hidden;
   padding: 0;
-  position: absolute;
+  position: absolute !important;
   width: 1px;
   white-space: nowrap;
 }
 .icon {
   display: inline-block;
-  width: 1em;
-  height: 1em;
+  inline-size: 1em;
+  block-size: 1em;
   stroke-width: 0;
   stroke: currentColor;
   fill: currentColor;
 }
 
-form {
-  border: 2px solid;
-  padding: 10px;
-}
-
-input {
-  font: inherit;
-  color: inherit;
-  letter-spacing: inherit;
-}
-input[type="radio"],
-input[type="checkbox"] {
-  appearance: none;
-  display: grid;
-  place-items: center;
-  margin: 0;
-  border: 0;
-  padding: 0;
-}
-:where(input[type="radio"], input[type="checkbox"]):before,
-:where(input[type="radio"], input[type="checkbox"]):after {
-  display: inline-block;
-  grid-area: 1/1;
-}
-:where(input[type="radio"], input[type="checkbox"]):before {
-  content: '';
-  inline-size: .5em;
-  block-size: .5em;
-  border: 2px solid;
-}
-:where(input[type="radio"], input[type="checkbox"]):after {
-  inline-size: .3em;
-  block-size: .3em;
-  background-color: currentColor;
-}
-input[type="radio"],
-input[type="radio"]:before,
-input[type="radio"]:after {
-  border-radius: 1000px;
-}
-:where(input[type="radio"], input[type="checkbox"]):checked:after {
-  content: '';
-}
-
 /* CUSTOM CONTROLS */
-
 .control :where(input, select, textarea) {
   border: 0;
   background-color: transparent;
 }
-
+.control select {
+  appearance: none;
+}
+.control:has(select) .icon-chevron-down {
+  display: block;
+}
 .control:has(:where(input[type="radio"], input[type="checkbox"])) {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: .125rem;
 }
-
 .control__input {
   display: flex;
-  gap: 2px;
-  border: 2px solid;
-  border-radius: 4px;
-  padding: 4px;
+  align-items: center;
+  gap: .125rem;
+  border: .125rem solid;
+  border-radius: .25rem;
+  padding: .25rem;
 }
 .control__input :where(input, select, textarea) {
   flex-grow: 1;
@@ -93,30 +104,22 @@ input[type="radio"]:after {
   outline: 0;
 }
 .control__input:has(:focus-visible),
-#html:focus-visible + .card,
-#css:focus-visible + .card,
-#js:focus-visible + .card {
+.card:has(#html:focus-visible),
+.card:has(#css:focus-visible),
+.card:has(#js:focus-visible) {
   outline: 1px solid;
   outline-offset: 1px;
 }
 .control__input :where(.icon-check, .icon-cancel) {
   display: none;
 }
-
 .js .control:has([data-blurred]:invalid),
 .no-js .control:has(:focus-visible:invalid) {
   color: tomato;
 }
 /* Controls that do not include radio or checkbox, and that also have valid inputs currently focused */
-.control:has(
-  :where(
-    :not(
-      [type="radio"],
-      [type="checkbox"]
-    )
-  ):focus-visible:valid
-) {
-  color: lime;
+.control:has(:where(:not([type="radio"],[type="checkbox"])):focus-visible:valid) {
+  color: limegreen;
 }
 :where(
   .js .control:has([data-blurred]:invalid), 
@@ -124,6 +127,9 @@ input[type="radio"]:after {
 ) .icon-cancel,
 .control:has(:focus-visible:valid) .icon-check {
   display: unset
+}
+.control:has(:focus-visible) .icon-chevron-down {
+  display: none;
 }
 
 /* Conditional rendering content */
@@ -151,9 +157,18 @@ form:has(#checkbox-3:checked) .results__checked--3 {
 }
 .card {
   position: relative;
-  border: 2px solid;
+  border: .125rem solid;
   border-radius: .25rem;
   padding: .5rem;
+  transition: box-shadow 0.2s ease;
+}
+.card svg {
+  display: block;
+  margin: auto;
+}
+.card label {
+  display: block;
+  text-align: center;
 }
 .card label:after {
   content: '';
@@ -163,14 +178,13 @@ form:has(#checkbox-3:checked) .results__checked--3 {
 .card a {
   position: relative;
 }
-#html:checked + .card,
-#css:checked + .card,
-#js:checked + .card {
-  border-color: goldenrod;
+.card:has(#html:checked),
+.card:has(#css:checked),
+.card:has(#js:checked) {
+  box-shadow: inset 0 0 0 .25em mediumpurple;
 }
 
-form:has(:invalid) button:not([type]),
-form:has(:invalid) button[type="submit"] {
+form:has(:invalid) :where(button:not([type]), button[type="submit"]) {
   opacity: 0.7;
   cursor: not-allowed;
 }
