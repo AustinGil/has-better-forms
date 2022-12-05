@@ -73,6 +73,9 @@ fieldset {
 .control select {
   appearance: none;
 }
+.control option {
+  color: initial;
+}
 .control:has(select) .icon-chevron-down {
   display: block;
 }
