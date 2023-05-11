@@ -6,6 +6,14 @@ body {
   font: 1.25rem/1.5 'Manrope';
   color: #333;
   background-image: url('/background.svg');
+    --text: #333;
+  --highlight: mediumpurple;
+  --highlightDark: darkslateblue;
+  --outline: plum;
+  --error: tomato;
+  --outlineError: pink;
+  --success: limegreen;
+  --outlineSuccess: palegreen;
 }
 form {
   border: .125rem solid;
@@ -98,31 +106,44 @@ fieldset {
   outline: 0;
 }
 .control__input:has(:focus-visible),
-.card:has(#html:focus-visible),
-.card:has(#css:focus-visible),
-.card:has(#js:focus-visible) {
-  outline: 1px solid;
-  outline-offset: 1px;
+.card:has(:focus-visible) {
+  outline: 3px solid plum;
 }
 .control__input :where(.icon-check, .icon-cancel) {
   display: none;
 }
-.js .control:has([data-blurred]:invalid),
-.no-js .control:has(:focus-visible:invalid) {
+.control:has(:focus:invalid) {
   color: tomato;
+  outline-color: pink;
+}
+.control:has(input[required]) label:after {
+  content: '';
+  margin: .1em;
+  padding: .1em;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><path fill="crimson" d="M110 16 76 57v1l51-10v32l-51-9-1 1 35 39-28 17-18-50-1 1-18 49-28-17 34-40-50 9V48l50 10v-1L17 17 46 1l17 48h1L82 1l28 15z"/></svg>') no-repeat 0 25%;
 }
 /* Controls that do not include radio or checkbox, and that also have valid inputs currently focused */
-.control:has(:where(:not([type="radio"],[type="checkbox"])):focus-visible:valid) {
+.control:has(:focus:valid) {
   color: limegreen;
+  outline-color: palegreen;
+}
+.control:has(:focus:invalid) .control__input {
+  color: tomato;
+  outline-color: pink;
+}
+/* Controls that do not include radio or checkbox, and that also have valid inputs currently focused */
+.control:has(:focus:valid) .control__input {
+  color: limegreen;
+  outline-color: palegreen;
 }
 :where(
-  .js .control:has([data-blurred]:invalid), 
+  .control:has(:focus:invalid), 
   .no-js .control:has(:focus-visible:invalid)
 ) .icon-cancel,
-.control:has(:focus-visible:valid) .icon-check {
+.control:has(:focus:valid) .icon-check {
   display: unset
 }
-.control:has(:focus-visible) .icon-chevron-down {
+.control:has(:focus) .icon-chevron-down {
   display: none;
 }
 
